@@ -10,24 +10,44 @@
 
 <body>
     <?php include('header.php') ?>
+    <div class="container mt-4">
+        <div class="row">
+            <a href="addTitle" class="btn btn-primary btn-lg">add articles</a>
+        </div>
+    </div>
+
+
     <div class="container">
+        <?php if ($suc = $this->session->flashdata('successful')) : ?>
+            <div class="alert alert-success ">
+                <?= $suc ?>
+            </div>
+        <?php endif ?>
         <h1>welcome to admin dashboard</h1>
         <div class="table">
             <table>
                 <thead>
-                    <th>ID</th>
+
                     <th>Article Title</th>
                     <th>edit</th>
                     <th>Delete</th>
                 </thead>
                 <?php if (count($articles)) { ?>
                     <?php foreach ($articles as $art) { ?>
-                       
+
                         <tr>
-                            <td>1</td>
+
                             <td><?php echo $art->title; ?></td>
                             <td><a href="" class="btn btn-warning">edit</a></td>
-                            <td><a href="" class="btn btn-danger">delete</a></td>
+                            <td>
+
+                                <?=
+                                form_open('Admin/deleteArticle'),
+                                form_hidden('id', $art->id),
+                                form_submit(['name' => 'submit', 'value' => 'Delete', 'class' => 'btn btn-danger']),
+                                form_close();
+                                ?>
+                            </td>
                         </tr>
 
                     <?php } ?>

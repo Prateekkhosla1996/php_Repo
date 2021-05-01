@@ -27,7 +27,7 @@ class Admin extends CI_Controller
     }
     public function index()
     {
-        $this->load->library('form_validation');
+
 
         $this->form_validation->set_rules('username', 'user name', 'required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required|max_length[12]');
@@ -43,24 +43,60 @@ class Admin extends CI_Controller
                 $this->session->set_userdata('id', $id);
                 return redirect('admin/welcome');
             } else {
-               $this->session->set_flashdata('Login_failed','Invalid username/password');
-               
-               return redirect('Admin/index');
+                $this->session->set_flashdata('Login_failed', 'Invalid username/password');
+
+                return redirect('Admin/index');
             }
         } else {
             // echo validation_errors();
             $this->load->view('Admin/login');
         }
     }
-    // public function addUser()
-    // {
-    // }
+    public function addTitle()
+    {
+        if (!$this->session->userdata('id')) {
+            return redirect('Admin/index');
+        }
+
+        $this->load->view('admin/add_article');
+        $this->input->post();
+    }
+    public function userValidation()
+    {
+        if (!$this->session->userdata('id')) {
+            return redirect('Admin/index');
+        }
+        $this->form_validation->set_rules('title', 'Title', 'required|alpha');
+        $this->form_validation->set_rules('body', 'Body', 'required|alpha');
+        if ($this->form_validation->run()) {
+            $post = $this->input->post();
+            $this->load->model('Loginmodel');
+            if ($this->Loginmodel->add_articles($post)) {
+                $this->session->set_flashdata('successful', 'uploaded sucessfully');
+                return redirect('Admin/userValidation');
+            } else {
+                $this->session->set_flashdata('uploading_failed', 'failed to upload');
+                return redirect('Admin/userValidation');
+            }
+        } else {
+            $this->load->view('admin/add_article');
+        }
+    }
     // public function edit()
     // {
     // }
-    // public function delete()
-    // {
-    // }
+    public function deleteArticle()
+    {
+        $id = $this->input->post('id');
+        $this->load->model('Loginmodel');
+        if ($this->Loginmodel->delete_articles($id)) {
+            $this->session->set_flashdata('successful', 'deleted sucessfully');
+            return redirect('Admin/welcome');
+        } else {
+            $this->session->set_flashdata('error', 'unable to delete ');
+            return redirect('Admin/welcome');
+        }
+    }
     // is_unique[tablename.fieldname]
 
 }
