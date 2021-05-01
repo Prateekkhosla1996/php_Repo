@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Articles List</title>
+    <title>Admin panel</title>
     <!-- <link rel="stylesheet" href="*/"> -->
     <?= link_tag('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'); ?>
 </head>
@@ -17,17 +17,10 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                </li>
-
-
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
+        <?php 
+            if($this->session->userdata('id')){ ?>
+                <a href="<?= base_url('admin/logout') ?>" class="btn btn-danger">Logout </a>
+            <?php }?>
+        
     </nav>
     
