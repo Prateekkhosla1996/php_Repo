@@ -1,4 +1,6 @@
 <?php
+
+
 class Admin extends CI_Controller
 {
     public function __construct()
@@ -15,11 +17,27 @@ class Admin extends CI_Controller
         if (!$this->session->userdata('id')) {
             return redirect('Admin/index');
         }
-
         $this->load->model('Loginmodel');
+        $this->load->library('pagination');
+        $config=[
+           'base_url' => base_url('Admin/welcome'),
+           'per_page' => 2,
+           'total_rows' => $this->Loginmodel->num_rows(),
+           'full_tag_open'=>"<ul class='pagination'>",
+           'full_tag_close'=>"</ul>",
+           'next_tag_open'=>"<li class='page-item'>",
+           'next_tag_close'=>"</li>",
+           'prev_tag_open'=>"<li class='page-item'>",
+           'prev_tag_close'=>"</li>",
+           'num_tag_open' =>"<li class='page-item'>",
+           'num_tag_close' =>"</li>",
+           'cur_tag_open' =>"<li class='active'>",
+           'cur_tag_close' =>"</li>",
+        ];
+        $this->pagination->initialize($config);
+        $articles = $this->Loginmodel->articlelist($config['per_page'],$this->uri->segment(3));
         $get_articles = $this->Loginmodel->getarticleList();
-
-        $this->load->view('Admin/dashboard.php', ['articles' => $get_articles]);
+        $this->load->view('Admin/dashboard.php', ['articles' => $articles]);
     }
     public function register()
     {
@@ -73,10 +91,10 @@ class Admin extends CI_Controller
             $this->load->model('Loginmodel');
             if ($this->Loginmodel->add_articles($post)) {
                 $this->session->set_flashdata('successful', 'uploaded sucessfully');
-                return redirect('Admin/userValidation');
+                return redirect('Admin/welcome');
             } else {
                 $this->session->set_flashdata('uploading_failed', 'failed to upload');
-                return redirect('Admin/userValidation');
+                return redirect('Admin/welcome');
             }
         } else {
             $this->load->view('admin/add_article');
@@ -96,6 +114,11 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('error', 'unable to delete ');
             return redirect('Admin/welcome');
         }
+    }
+    public function edit($id){
+        $this->load->model('Loginmodel');
+        $rt = $this->Loginmodel->find_article($id);
+        print_r($rt);
     }
     // is_unique[tablename.fieldname]
 

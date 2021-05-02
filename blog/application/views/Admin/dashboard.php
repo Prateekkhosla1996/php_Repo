@@ -38,7 +38,7 @@
                         <tr>
 
                             <td><?php echo $art->title; ?></td>
-                            <td><a href="" class="btn btn-warning">edit</a></td>
+                            <td><?=  anchor("admin/edit/{$art->id}",'Edit',['class'=>'btn btn-warning']);  ?></td>
                             <td>
 
                                 <?=
@@ -57,6 +57,9 @@
 
 
             </table>
+            <nav aria-label="Page navigation example">
+                    <?= $this->pagination->create_links(); ?>
+            </nav>
         </div>
     </div>
     <?php include('footer.php') ?>
