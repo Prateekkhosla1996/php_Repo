@@ -24,7 +24,7 @@ class Loginmodel extends CI_Model
 
     public function find_article($articleid)
     {
-        $q = $this->db->select(['title','body'])
+        $q = $this->db->select(['title','body','id'])
             ->where('id', $articleid)
             ->get('article');
             return $q->row(); 
@@ -55,5 +55,10 @@ class Loginmodel extends CI_Model
             ->where(['user_id' => $id])
             ->get();
         return $q->num_rows();
+    }
+    public function update_article($id,$article){
+        return $this->db->where('id',$id)
+        ->update('article',$article);
+        
     }
 }

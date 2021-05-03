@@ -84,8 +84,8 @@ class Admin extends CI_Controller
         if (!$this->session->userdata('id')) {
             return redirect('Admin/index');
         }
-        $this->form_validation->set_rules('title', 'Title', 'required|alpha');
-        $this->form_validation->set_rules('body', 'Body', 'required|alpha');
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('body', 'Body', 'required');
         if ($this->form_validation->run()) {
             $post = $this->input->post();
             $this->load->model('Loginmodel');
@@ -118,8 +118,28 @@ class Admin extends CI_Controller
     public function edit($id){
         $this->load->model('Loginmodel');
         $rt = $this->Loginmodel->find_article($id);
-        print_r($rt);
+        $this->load->view('Admin/edit_article',['article'=>$rt]);
     }
     // is_unique[tablename.fieldname]
-
+    public function edit_article($article_id){
+        if (!$this->session->userdata('id')) {
+            return redirect('Admin/index');
+        }
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('body', 'Body', 'required');
+        if ($this->form_validation->run()) {
+            $post = $this->input->post();
+            // $art_id = $post['article_id'];
+            $this->load->model('Loginmodel');
+            if ($this->Loginmodel->update_article($article_id,$post)) {
+                $this->session->set_flashdata('successful', 'edit sucessfully');
+                return redirect('Admin/welcome');
+            } else {
+                $this->session->set_flashdata('uploading_failed', 'failed to edit');
+                return redirect('Admin/welcome');
+            }
+        } else {
+            $this->load->view('admin/edit_article');
+        }
+    }
 }
