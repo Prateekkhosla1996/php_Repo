@@ -19,8 +19,10 @@ if (isset($_GET['type']) && $_GET['type'] != '') {
         mysqli_query($con, $delete_sql);
     }
 }
-$sql = "SELECT * FROM product ORDER BY id desc";
+// $sql = "SELECT * FROM product ORDER BY id desc";
+$sql = "SELECT product.*,categories.c_name from product,categories where product.categories_id=categories.id ORDER BY id desc";
 $query = mysqli_query($con, $sql);
+
 ?>
 <div class="content pb-0">
     <div class="orders">
@@ -50,6 +52,7 @@ $query = mysqli_query($con, $sql);
                                         <th>meta_desc</th>
                                         <th>status</th>
                                         <th>meta_keyword</th>
+                                        <th>operation</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,13 +61,17 @@ $query = mysqli_query($con, $sql);
                                         <tr>
                                             <td class="serial"></td>
                                             <td><?php echo $row['id'] ?></td>
-                                            <td><?php echo $row['categories_id'] ?></td>
+                                            <td><?php echo $row['c_name'] ?></td>
                                             <td><?php echo $row['product_name'] ?></td>
+                                            <td><?php echo $row['product_mrp'] ?></td>
                                             <td><?php echo $row['product_sp'] ?></td>
-                                            <td><?php echo $row['product_img'] ?></td>
+                                            <td><?php echo $row['product_qty'] ?></td>
+                                            <td><img src="../media/product/<?php echo $row['product_img']?>"> </td>
                                             <td><?php echo $row['short_desc'] ?></td>
+                                            <td><?php echo $row['product_desc'] ?></td>
                                             <td><?php echo $row['meta_title'] ?></td>
                                             <td><?php echo $row['meta_desc'] ?></td>
+                                            <td><?php echo $row['status'] ?></td>
                                             <td><?php echo $row['meta_keyword'] ?></td>
                                             <td>
                                                 <?php
@@ -73,7 +80,7 @@ $query = mysqli_query($con, $sql);
                                                 } else {
                                                     echo "<a class='btn btn-success' href='?type=status&operation=dactive&id=" . $row['id'] . "'>Active</a> &nbsp;";
                                                 }
-                                                echo "<a class='btn btn-info' href='manage_categories.php?id=" . $row['id'] . "'>UPDATE</a> &nbsp;";
+                                                echo "<a class='btn btn-info' href='manage_product.php?id=" . $row['id'] . "'>UPDATE</a> &nbsp;";
                                                 echo "<a class='btn btn-danger' href='?type=delete&id=" . $row['id'] . "'>DELETE</a> &nbsp;";
 
                                                 ?>
