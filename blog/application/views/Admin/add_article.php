@@ -12,7 +12,7 @@
             <?= $suc ?>
         </div>
     <?php endif ?>
-    <?php echo form_open('admin/userValidation') ?>
+    <?php echo form_open_multipart('admin/userValidation') ?>
     <?php echo form_hidden('user_id', $this->session->userdata('id')); ?>
 
     <div class="row">
@@ -28,6 +28,14 @@
                 <?php echo form_textarea(['class' => 'form-control', 'name' => 'body', 'placeholder' => 'enter article body', 'type' => '', 'value' => set_value("body")]) ?>
 
                 <?php echo form_error('body', '<div class="text-danger">', '</div>'); ?>
+            </div>
+            <div class="form-group">
+                <label for="">select images</label>
+
+                <input type="file" name="image[]" multiple />
+                <?php if (isset($upload_error)) {
+                    echo $upload_error;
+                } ?>
             </div>
 
             <?php echo form_submit(['type' => 'submit', 'class' => 'btn btn-primary', 'value' => 'submit']) ?>

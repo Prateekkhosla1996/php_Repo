@@ -84,10 +84,21 @@ class Admin extends CI_Controller
         if (!$this->session->userdata('id')) {
             return redirect('Admin/index');
         }
+       
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('body', 'Body', 'required');
-        if ($this->form_validation->run()) {
+     
+        $config['allowed_types'] ='jpg|png';
+        $config['upload_path'] ='./upload/';
+        $this->load->library('upload',$config);
+
+        if ($this->form_validation->run() && $this->upload->do_upload('image')) {
             $post = $this->input->post();
+            $data = $this->upload->data();
+            print_r($data);
+            $img_path = base_url("upload/".$data['raw_name'].$data['file_ext']);
+            
+            $post['image_path'] = $img_path;
             $this->load->model('Loginmodel');
             if ($this->Loginmodel->add_articles($post)) {
                 $this->session->set_flashdata('successful', 'uploaded sucessfully');
@@ -97,7 +108,8 @@ class Admin extends CI_Controller
                 return redirect('Admin/welcome');
             }
         } else {
-            $this->load->view('admin/add_article');
+            $upload_error =  $this->upload->display_errors();
+            $this->load->view('admin/add_article',compact('upload_error'));
         }
     }
     // public function edit()
