@@ -1,0 +1,92 @@
+/* contact us form */
+#contact__us {
+  width: 100%;
+  margin-bottom: 5rem;
+}
+#contact__us .form-group {
+  padding: 10px;
+}
+#contact__us .form-group input {
+  width: 80%;
+  height: 2rem;
+}
+#contact__us .form-group textarea {
+  width: 80%;
+  height: 10rem;
+}
+.lang1 {
+  width: 90%;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.location p {
+  font-size: 13px;
+  line-height: 24px;
+}
+.location {
+  padding: 20px 10px;
+}
+.form-group button {
+  width: 80%;
+  height: 3rem;
+  font-weight: 600;
+  border-radius: none;
+  transition: 0.4s all ease-in;
+}
+.form-group button:hover {
+  background-color: white;
+  color: green;
+}
+label span {
+  color: red;
+  font-size: 12px;
+}
+input::placeholder {
+  font-size: 14px;
+  padding: 10px;
+}
+@media only screen and (max-width: 990px) {
+  .form-group button {
+    width: 100%;
+  }
+  #contact__us .form-group textarea {
+    width: 100%;
+  }
+  #contact__us .form-group input {
+    width: 100%;
+  }
+}
+.map {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.map iframe {
+  width: 100%;
+}
+#contact__us button {
+  border: none;
+  padding: 12px 24px;
+  margin-bottom: 2rem;
+  background-color: rgb(208, 152, 13, 0.8);
+  color: black;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  transition: 0.4s all ease-in-out;
+}
+#contact__us  button:hover {
+  color: rgb(208, 152, 13, 0.8);
+  background-color: black;
+}
+#contact__us h3 {
+  color: darkslategray;
+  font-family: "Kaushan Script", cursive;
+  font-weight: 700;
+}
+#contact__us h5 {
+  color: darkslategray;
+  font-weight: 500;
+}
+/* contact us ended */

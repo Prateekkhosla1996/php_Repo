@@ -99,76 +99,114 @@ if (isset($_POST['submit'])) {
 
 
                             <div class="form-group">
-                                <label for="category" class=" form-control-label">categories</label>
-                                <select name="categories_id" id="" class="form-control">
-                                    <option value="">Select categories</option>
-                                    <?php
-                                    $res = mysqli_query($con, "SELECT id,c_name FROM categories order by c_name asc");
-                                    while ($row = mysqli_fetch_assoc($res)) {
-                                        if ($row['id'] == $categories_id) {
-                                            echo "<option selected value=" . $row['id'] . ">" . $row['c_name'] . "</option>";
-                                        } else {
-                                            echo "<option value=" . $row['id'] . ">" . $row['c_name'] . "</option>";
-                                        }
-                                    }
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="category" class=" form-control-label">categories</label>
+                                        <select name="categories_id" id="" class="form-control">
 
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="product" class=" form-control-label">Product name</label>
-                                <input type="text" id="product" name="product_name" required placeholder="Enter Product name" value="<?php echo $product_name ?>  " required class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="product_mrp" class=" form-control-label">Product mrp</label>
-                                <input type="text" id="product_mrp" name="product_mrp" required placeholder="Enter Product mrp" value="<?php echo $product_mrp ?> " required class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="product_mrp" class=" form-control-label">Product sp</label>
-                                <input type="text" id="product_sp" name="product_sp" required placeholder="Enter Product sp" value="<?php echo $product_sp ?> " required class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="product_qty" class=" form-control-label">Product qty</label>
-                                <input type="text" id="product_qty" name="product_qty" required placeholder="Enter Product qty" value="<?php echo $product_qty ?> " required class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="product_img" class=" form-control-label">Product img</label>
-                                <input type="file" id="	product_img" name="product_img" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="short_desc	" class=" form-control-label">Product short desc</label>
-                                <textarea id="short_desc" name="short_desc" required value="" class="form-control" required>
+                                            <option value="">Select categories</option>
+                                            <?php
+                                            $res = mysqli_query($con, "SELECT id,c_name FROM categories order by c_name asc");
+                                            while ($row = mysqli_fetch_assoc($res)) {
+                                                if ($row['id'] == $categories_id) {
+                                                    echo "<option selected value=" . $row['id'] . ">" . $row['c_name'] . "</option>";
+                                                } else {
+                                                    echo "<option value=" . $row['id'] . ">" . $row['c_name'] . "</option>";
+                                                }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="product" class=" form-control-label">Product name</label>
+                                        <input type="text" id="product" name="product_name" required placeholder="Enter Product name" value="<?php echo $product_name ?>  " required class="form-control">
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label for="product_mrp" class=" form-control-label">Product mrp</label>
+                                            <input type="text" id="product_mrp" name="product_mrp" required placeholder="Enter Product mrp" value="<?php echo $product_mrp ?> " required class="form-control">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="product_mrp" class=" form-control-label">Product sp</label>
+                                            <input type="text" id="product_sp" name="product_sp" required placeholder="Enter Product sp" value="<?php echo $product_sp ?> " required class="form-control">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="product_qty" class=" form-control-label">Product qty</label>
+                                            <input type="text" id="product_qty" name="product_qty" required placeholder="Enter Product qty" value="<?php echo $product_qty ?> " required class="form-control">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="row" id="image_box">
+                                        <div class="col-lg-10">
+                                            <label for="product_img" class=" form-control-label">Product img</label>
+                                            <input type="file" id="	product_img" name="product_img" class="form-control">
+
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button id="payment-button" name="addimg" class=" mt-4 btn btn-lg btn-info btn-block" value="submit" onclick="add_more_images()">
+                                                <span id="payment-button-amount">Add</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label for="short_desc	" class=" form-control-label">Product short desc</label>
+                                            <textarea id="short_desc" name="short_desc" required value="" class="form-control" required>
                                 <?php echo $short_desc ?>
                                 </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="product_desc" class=" form-control-label">Product long desc</label>
-                                <textarea name="product_desc" placeholder="Enter Product desc" value="" class="form-control" required><?php echo $product_desc ?></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="meta_title	" class=" form-control-label">Product meta_title</label>
-                                <textarea id="meta_title" name="meta_title" placeholder="Enter Product meta title" value="" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="product_desc" class=" form-control-label">Product long desc</label>
+                                            <textarea name="product_desc" placeholder="Enter Product desc" value="" class="form-control" required><?php echo $product_desc ?></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label for="meta_title	" class=" form-control-label">Product meta_title</label>
+                                            <textarea id="meta_title" name="meta_title" placeholder="Enter Product meta title" value="" class="form-control">
                                 <?php echo $meta_title ?>
                                 </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="meta_desc" class=" form-control-label">Product meta_desc</label>
-                                <textarea id="meta_desc" name="meta_desc" placeholder="Enter Product meta desc" value="" class="form-control"><?php echo $meta_desc ?></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="meta_keyword" class=" form-control-label">Product meta_keyword</label>
-                                <textarea name="meta_keyword" placeholder="Enter Product meta keyword" value="" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="meta_desc" class=" form-control-label">Product meta_desc</label>
+                                            <textarea id="meta_desc" name="meta_desc" placeholder="Enter Product meta desc" value="" class="form-control"><?php echo $meta_desc ?></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="meta_desc" class=" form-control-label">Product meta_desc</label>
+                                    <textarea id="meta_desc" name="meta_desc" placeholder="Enter Product meta desc" value="" class="form-control"><?php echo $meta_desc ?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="meta_keyword" class=" form-control-label">Product meta_keyword</label>
+                                    <textarea name="meta_keyword" placeholder="Enter Product meta keyword" value="" class="form-control">
                                     <?php echo $meta_keyword ?>
                                     </textarea>
-                            </div>
-                            <button id="payment-button" type="submit" name="submit" class="btn btn-lg btn-info btn-block" value="submit">
-                                <span id="payment-button-amount">Submit</span>
-                            </button>
+                                </div>
+                                <button id="payment-button" type="submit" name="submit" class="btn btn-lg btn-info btn-block" value="submit">
+                                    <span id="payment-button-amount">Submit</span>
+                                </button>
 
-                        </div>
-                        <div class="field-error">
-                            <?php echo $msg ?>
-                        </div>
+                            </div>
+                            <div class="field-error">
+                                <?php echo $msg ?>
+                            </div>
                     </form>
                 </div>
             </div>
@@ -176,6 +214,9 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 
+
 <?php
 require('footer.inc.php')
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./html/assets/js/vendor/custom.js"></script>

@@ -1,0 +1,41 @@
+#product_view__section {
+  width: 100%;
+  height: 100%;
+  margin-top: 2rem;
+}
+#product_view__section a button {
+  border: none;
+  padding: 12px 24px;
+  margin-bottom: 2rem;
+  background-color: rgb(208, 152, 13, 0.8);
+  color: black;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  transition: 0.4s all ease-in-out;
+}
+#product_view__section a button:hover {
+  color: rgb(208, 152, 13, 0.8);
+  background-color: black;
+}
+
+.page-item a {
+  background-color: darkslategray;
+  font-weight: 600;
+  font-size: 16px;
+}
+/* #sortby option {
+  padding: 30px;
+} */
+
+ .card{
+  border: none;
+}
+.card img{
+  width: 100%;
+  height: auto;
+}
+
+.page-link{
+  color: wheat  !important;
+}
